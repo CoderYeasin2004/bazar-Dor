@@ -1,18 +1,23 @@
 "use client";
 
 import Image from "next/image";
-import NavLinks from "./NavLinks";
+import { useEffect, useRef } from "react";
 
 const Header = () => {
-  const date = new Date().toLocaleDateString("bn-BD", {
-    dateStyle: "full",
-  });
+  const dateRef = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
+    if (dateRef.current) {
+      dateRef.current.textContent = new Date().toLocaleDateString("bn-BD", {
+        dateStyle: "full",
+      });
+    }
+  }, []);
 
   return (
     <header className="w-full">
-      {/* Top Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between mt-5">
-        
+
         {/* Logo + Text */}
         <div className="flex items-center gap-2">
           <Image
@@ -25,7 +30,13 @@ const Header = () => {
 
           <div>
             <h2 className="font-extrabold text-lg">বাজার দর</h2>
-            <p className="text-sm text-gray-500">{date}</p>
+
+            <p
+              ref={dateRef}
+              className="text-sm text-gray-500"
+            >
+              তারিখ লোড হচ্ছে...
+            </p>
           </div>
         </div>
 
@@ -39,10 +50,8 @@ const Header = () => {
             সাইন আপ
           </button>
         </div>
-      </div>
 
-      {/* Navigation */}
-      <NavLinks />
+      </div>
     </header>
   );
 };

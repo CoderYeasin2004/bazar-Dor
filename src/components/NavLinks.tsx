@@ -1,20 +1,24 @@
-import { ICategory } from "@/types/categoryType";
+import {  IProduct } from "@/types/productType";
 import Link from "next/link";
 
 const NavLinks = async () => {
   const res = await fetch(
-    "https://api.api-store.workers.dev/api/bazardor/categories"
+    "https://api.abcz.workers.dev/api/bazardor/categories"
   );
 
-  const categories: ICategory[] = await res.json();
+  const categories: IProduct[] = await res.json();
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-5 flex gap-5">
-      {categories.map((category) => (
-        <Link key={category.id} href={`/${category.slug}`}>
-          {category.icon} {category.nameBn}
-        </Link>
-      ))}
+    <div className="w-full border border-gray-200 mt-5">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-start gap-5 p-3">
+          {categories.map((category) => (
+            <Link key={category.id} href={`/${category.slug}`}>
+              {category.icon} {category.nameBn}
+            </Link>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
