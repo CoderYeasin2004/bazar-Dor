@@ -1,3 +1,4 @@
+
 import type { ReactNode } from "react";
 
 export interface IProduct {
@@ -18,4 +19,10 @@ export interface IProduct {
     dir: "up" | "down" | "same";
     pct: number;
   };
+  markets: {
+    market: string;
+    division: string;
+    min: number;
+    max: number;
+  }[];
 }

@@ -14,8 +14,8 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="w-full">
-      <div className="mx-auto  flex min-h-37.5 w-full items-center justify-between overflow-hidden rounded-2xl border border-gray-200 bg-[#f8faf8] px-5 py-4 sm:px-7 md:px-9 lg:px-10 mt-10">
+    <section className="w-full px-4 sm:px-6 lg:px-8">
+  <div className="mx-auto mt-10 flex min-h-37.5 w-full max-w-7xl items-center justify-between overflow-hidden rounded-2xl border border-gray-200 bg-[#f8faf8] px-5 py-4 sm:px-7 md:px-9 lg:px-10">
         {/* Content */}
         <div className="max-w-162.5">
           {/* Dynamic Date */}

@@ -1,7 +1,7 @@
 
 import { IProduct } from "@/types/productType";
 
-const AllProducts = async () => {
+const FilterProducts = async () => {
   const res = await fetch(
     "https://api.abcz.workers.dev/api/bazardor/products"
   );
@@ -16,18 +16,31 @@ const AllProducts = async () => {
     ? response
     : response.data ?? [];
 
+  // Filter 6 products with rising prices
+  const upProducts = products
+    .filter((product) => product.change.dir === "up")
+    .slice(0, 6);
+
+  // Filter 6 products with falling prices
+  const downProducts = products
+    .filter((product) => product.change.dir === "down")
+    .slice(0, 6);
+
+  // Combine both lists
+  const filteredProducts = [...upProducts, ...downProducts];
+
   return (
     <section className="w-full px-4 py-6 sm:px-6 lg:px-8">
       <div className="mx-auto w-full max-w-7xl">
-        {/* Product Count */}
         <h2 className="font-bold">সব পণ্য</h2>
+
         <p className="mb-4 text-xs text-gray-500 sm:text-sm">
-          {products.length.toLocaleString("bn-BD")}টি পণ্যের দাম দেখানো হচ্ছে
+          {filteredProducts.length.toLocaleString("bn-BD")}
+          টি পণ্যের দাম দেখানো হচ্ছে
         </p>
 
-        {/* Product Grid */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {products.map((product) => {
+          {filteredProducts.map((product) => {
             const price = product.today;
             const change = product.change.pct;
             const direction = product.change.dir;
@@ -37,7 +50,6 @@ const AllProducts = async () => {
                 key={product.id}
                 className="min-w-0 rounded-xl border border-[#e2eae3] bg-[#fbfdfb] p-3 shadow-sm transition-shadow duration-200 hover:shadow-md sm:p-4"
               >
-                {/* Product Information */}
                 <div className="flex min-w-0 items-center gap-3">
                   <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-gray-100">
                     <span className="text-2xl">
@@ -58,7 +70,6 @@ const AllProducts = async () => {
                   </div>
                 </div>
 
-                {/* Price Information */}
                 <div className="mt-4 flex items-end justify-between gap-2">
                   <div className="min-w-0">
                     <p className="text-xs text-gray-500">
@@ -96,4 +107,4 @@ const AllProducts = async () => {
   );
 };
 
-export default AllProducts;
+export default FilterProducts;
