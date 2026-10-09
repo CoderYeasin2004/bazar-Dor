@@ -15,7 +15,7 @@ const Hero = () => {
 
   return (
     <section className="w-full">
-      <div className="mx-auto flex min-h-37.5 w-full items-center justify-between overflow-hidden rounded-2xl border border-gray-200 bg-[#f8faf8] px-5 py-4 sm:px-7 md:px-9 lg:px-10 mt-10">
+      <div className="mx-auto  flex min-h-37.5 w-full items-center justify-between overflow-hidden rounded-2xl border border-gray-200 bg-[#f8faf8] px-5 py-4 sm:px-7 md:px-9 lg:px-10 mt-10">
         {/* Content */}
         <div className="max-w-162.5">
           {/* Dynamic Date */}
@@ -50,7 +50,8 @@ const Hero = () => {
           <Image
             src="/bazar-hero.png"
             alt="Vegetable basket"
-            fill
+            width={250}
+            height={250}
             priority
             className="object-contain"
           />

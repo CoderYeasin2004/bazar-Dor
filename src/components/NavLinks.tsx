@@ -13,7 +13,7 @@ const NavLinks = async () => {
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-start gap-5 p-3">
           {categories.map((category) => (
-            <Link key={category.id} href={`/${category.slug}`}>
+            <Link key={category?.id} href={`/category/${category.slug}`}>
               {category.icon} {category.nameBn}
             </Link>
           ))}

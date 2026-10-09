@@ -1,7 +1,10 @@
+import Hero from "@/components/Hero"
 
 export default function Home() {
   return (
     <div> 
+
+      <Hero/>
      <div>
       <h2>আজ দাম বেড়েছে</h2>
 

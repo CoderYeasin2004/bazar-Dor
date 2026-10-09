@@ -7,7 +7,9 @@ const AllProducts = ({products}:{products: IProduct[]} ) => {
 
     return (
         <div>
-            
+            {
+                // products.map(product => <ProductCard key={product}></ProductCard>)
+            }
         </div>
     );
 };
