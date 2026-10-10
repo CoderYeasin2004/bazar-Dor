@@ -20,7 +20,7 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    fetch("https://api.abcz.workers.dev/api/bazardor/categories")
+    fetch("https://openapi.programming-hero.com/api/bazardor/categories")
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch categories");
         return res.json();

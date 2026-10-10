@@ -1,12 +1,13 @@
 import type { IProduct } from "@/types/productType";
 import { Suspense } from "react";
 import CategoryProductGrid from "@/components/CategoryProductGrid";
+import CategoryProductSkeleton from "@/components/skeletons/CategoryProductSkeleton";
 
 const getCategoryProducts = async (
   categorySlug: string,
 ): Promise<IProduct[]> => {
   const res = await fetch(
-    `https://api.abcz.workers.dev/api/bazardor/products?category=${encodeURIComponent(categorySlug)}`,
+    `https://openapi.programming-hero.com/api/bazardor/products?category=${encodeURIComponent(categorySlug)}`,
   );
 
   if (!res.ok) {
@@ -63,15 +64,9 @@ export default function CategoryPage({
 }) {
   return (
     <main className="mx-auto min-h-[60vh] max-w-6xl px-4 py-6">
-      <Suspense
-        fallback={
-          <div className="animate-pulse rounded-xl bg-white p-8 text-gray-500">
-            পণ্যের তথ্য লোড হচ্ছে...
-          </div>
-        }
-      >
-        <CategoryPageContent params={params} />
-      </Suspense>
+    <Suspense fallback={<CategoryProductSkeleton/>}>
+  <CategoryPageContent params={params} />
+</Suspense>
     </main>
   );
 }

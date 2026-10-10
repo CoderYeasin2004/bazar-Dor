@@ -3,7 +3,7 @@ import { IProduct } from "@/types/productType";
 import Link from "next/link";
 const AllProducts = async () => {
   const res = await fetch(
-    "https://api.abcz.workers.dev/api/bazardor/products"
+    "https://openapi.programming-hero.com/api/bazardor/products"
   );
 
   if (!res.ok) {

@@ -1,4 +1,3 @@
-
 import type { Metadata } from "next";
 import { Noto_Serif_Bengali } from "next/font/google";
 import "./globals.css";
@@ -8,6 +7,8 @@ import { Suspense } from "react";
 import NavLinks from "@/components/NavLinks";
 import Marquee from "@/components/Marquee";
 import Footer from "@/components/Footer";
+import HeaderSkeleton from "@/components/skeletons/HeaderSkeleton";
+import MarqueeSkeleton from "@/components/skeletons/MarqueeSkeleton";
 
 const notoSerifBengali = Noto_Serif_Bengali({
   subsets: ["latin", "bengali"],
@@ -29,19 +30,28 @@ export default function RootLayout({
       className={`${notoSerifBengali.className} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <Header />
+        <Suspense fallback={<HeaderSkeleton/>}>
+          <Header />
+        </Suspense>
 
         <Suspense fallback={null}>
           <NavLinks />
         </Suspense>
 
-        <Suspense fallback={<div className="h-8 w-full" />}>
-          <Marquee />
-        </Suspense>
+       <Suspense
+  fallback={
+    <>
+      <div className="h-8 w-full" />
+      <MarqueeSkeleton />
+    </>
+  }
+>
+  <Marquee />
+</Suspense>
 
         <main className="w-full flex-1">
           {children}
-          <Footer/>
+          <Footer />
         </main>
       </body>
     </html>
