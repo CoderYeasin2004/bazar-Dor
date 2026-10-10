@@ -1,6 +1,7 @@
 
 import { IProduct } from "@/types/productType";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 
 
 
@@ -54,10 +55,10 @@ const DetailsPage = async ({
   <div className="mx-auto w-full max-w-7xl space-y-5">
 
         {/* Breadcrumb */}
-        <nav className="text-[10px] text-gray-600">
-          {/* <a href="/" className="hover:text-green-700">
-            হোম
-          </a> */}
+        <nav className="text-[15px] text-gray-600">
+          <Link href="/" className="hover:text-green-700">
+  হোম
+</Link>
           <span className="mx-2">›</span>
           <span>{product.categoryNameBn}</span>
           <span className="mx-2">›</span>

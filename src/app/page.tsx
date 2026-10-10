@@ -9,13 +9,13 @@ export default function Home() {
       <Hero />
       <div>
         <div>
-          <Suspense fallback={<p>লোড হচ্ছে...</p>}>
+          <Suspense fallback={null}>
             <FilterProducts />
           </Suspense>
         </div>
 
       </div>
-      <Suspense fallback={<p>সব পণ্য লোড হচ্ছে...</p>}>
+      <Suspense fallback={null}>
         <AllProducts />
       </Suspense>
     </div>
