@@ -16,95 +16,99 @@ const FilterProducts = async () => {
     ? response
     : response.data ?? [];
 
-  // Filter 6 products with rising prices
   const upProducts = products
     .filter((product) => product.change.dir === "up")
     .slice(0, 6);
 
-  // Filter 6 products with falling prices
   const downProducts = products
     .filter((product) => product.change.dir === "down")
     .slice(0, 6);
 
-  // Combine both lists
-  const filteredProducts = [...upProducts, ...downProducts];
+  const ProductCard = ({ product }: { product: IProduct }) => {
+    const direction = product.change.dir;
+    const price = product.today;
+    const change = product.change.pct;
+
+    return (
+      <article className="min-w-0 rounded-xl border border-[#e2eae3] bg-[#fbfdfb] p-3 shadow-sm transition-shadow duration-200 hover:shadow-md sm:p-4">
+        <div className="flex min-w-0 items-center gap-2">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#f0f4ef]">
+            <span className="text-lg">
+              {product.image || product.categoryIcon || "🛒"}
+            </span>
+          </div>
+
+          <div className="min-w-0">
+            <h3 className="truncate text-xs font-bold text-[#26362b] sm:text-sm">
+              {product.nameBn}
+            </h3>
+            <p className="mt-0.5 text-[10px] text-gray-500">
+              {product.unit === "kg" ? "প্রতি কেজি" : product.unit}
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-2 flex items-end justify-between gap-1">
+          <div className="min-w-0">
+            <p className="text-[10px] text-gray-500">
+              আজকের দাম
+            </p>
+            <p className="mt-0.5 text-xs font-bold text-[#26362b] sm:text-sm">
+              {price.toLocaleString("bn-BD")} টাকা
+            </p>
+          </div>
+
+          <span
+            className={`shrink-0 rounded-full px-1.5 py-1 text-[9px] font-semibold sm:text-[10px] ${
+              direction === "up"
+                ? "bg-red-50 text-red-600"
+                : "bg-green-50 text-green-600"
+            }`}
+          >
+            {direction === "up" ? "▲" : "▼"}{" "}
+            {change.toLocaleString("bn-BD")}%
+          </span>
+        </div>
+      </article>
+    );
+  };
 
   return (
-    <section className="w-full px-4 py-6 sm:px-6 lg:px-8">
-      <div className="mx-auto w-full max-w-7xl">
-        <h2 className="font-bold">সব পণ্য</h2>
+  <section className="w-full px-4 py-6 sm:px-6 lg:px-8">
+    <div className="mx-auto w-full max-w-7xl space-y-6">
 
-        <p className="mb-4 text-xs text-gray-500 sm:text-sm">
-          {filteredProducts.length.toLocaleString("bn-BD")}
-          টি পণ্যের দাম দেখানো হচ্ছে
-        </p>
+      {/* Rising prices */}
+      <div>
+        <h2 className="mb-4 flex items-center gap-1 font-bold">
+          <span className="text-red-600">▲</span>
+          আজ দাম বেড়েছে
+        </h2>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredProducts.map((product) => {
-            const price = product.today;
-            const change = product.change.pct;
-            const direction = product.change.dir;
-
-            return (
-              <article
-                key={product.id}
-                className="min-w-0 rounded-xl border border-[#e2eae3] bg-[#fbfdfb] p-3 shadow-sm transition-shadow duration-200 hover:shadow-md sm:p-4"
-              >
-                <div className="flex min-w-0 items-center gap-3">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-gray-100">
-                    <span className="text-2xl">
-                      {product.image || product.categoryIcon || "🛒"}
-                    </span>
-                  </div>
-
-                  <div className="min-w-0 flex-1">
-                    <h3 className="truncate text-sm font-semibold text-[#26362b] sm:text-base">
-                      {product.nameBn}
-                    </h3>
-
-                    <p className="mt-1 text-xs text-gray-500">
-                      {product.unit === "kg"
-                        ? "প্রতি কেজি"
-                        : product.unit}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="mt-4 flex items-end justify-between gap-2">
-                  <div className="min-w-0">
-                    <p className="text-xs text-gray-500">
-                      বাজারদর আজ
-                    </p>
-
-                    <p className="mt-1 text-base font-bold text-[#26362b] sm:text-lg">
-                      {price.toLocaleString("bn-BD")} টাকা
-                    </p>
-                  </div>
-
-                  <span
-                    className={`shrink-0 rounded-full px-2 py-1 text-xs font-semibold ${
-                      direction === "up"
-                        ? "bg-red-50 text-red-600"
-                        : direction === "down"
-                          ? "bg-green-50 text-green-600"
-                          : "bg-gray-100 text-gray-500"
-                    }`}
-                  >
-                    {direction === "up"
-                      ? "▲"
-                      : direction === "down"
-                        ? "▼"
-                        : "—"}{" "}
-                    {change.toLocaleString("bn-BD")}%
-                  </span>
-                </div>
-              </article>
-            );
-          })}
+          {upProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
         </div>
       </div>
-    </section>
-  );
+
+      {/* Falling prices */}
+      <div>
+        <h2 className="mb-4 flex items-center gap-1 font-bold">
+          <span className="text-green-600">▼</span>
+          আজ দাম কমেছে
+        </h2>
+
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {downProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      </div>
+
+    </div>
+  </section>
+);
+
 };
 
 export default FilterProducts;

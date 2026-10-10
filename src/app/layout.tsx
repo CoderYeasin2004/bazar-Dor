@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 import { Suspense } from "react";
 import NavLinks from "@/components/NavLinks";
 import Marquee from "@/components/Marquee";
+import Footer from "@/components/Footer";
 
 const notoSerifBengali = Noto_Serif_Bengali({
   subsets: ["latin", "bengali"],
@@ -40,6 +41,7 @@ export default function RootLayout({
 
         <main className="w-full flex-1">
           {children}
+          <Footer/>
         </main>
       </body>
     </html>

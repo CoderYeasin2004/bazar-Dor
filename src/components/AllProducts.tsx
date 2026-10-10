@@ -17,7 +17,7 @@ const AllProducts = async () => {
     : response.data ?? [];
 
   return (
-    <section className="w-full px-4 py-6 sm:px-6 lg:px-8">
+    <section className="w-full px-4 py-6 sm:px-6 lg:px-8 scroll-mt-24"  id="all-products" >
       <div className="mx-auto w-full max-w-7xl">
         {/* Product Count */}
         <h2 className="font-bold">সব পণ্য</h2>
