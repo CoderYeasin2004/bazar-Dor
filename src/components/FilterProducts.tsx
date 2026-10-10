@@ -1,10 +1,9 @@
 
 import { IProduct } from "@/types/productType";
+import Link from "next/link";
 
 const FilterProducts = async () => {
-  const res = await fetch(
-    "https://api.abcz.workers.dev/api/bazardor/products"
-  );
+  const res = await fetch("https://api.abcz.workers.dev/api/bazardor/products");
 
   if (!res.ok) {
     throw new Error("Failed to fetch products");
@@ -14,7 +13,7 @@ const FilterProducts = async () => {
 
   const products: IProduct[] = Array.isArray(response)
     ? response
-    : response.data ?? [];
+    : (response.data ?? []);
 
   const upProducts = products
     .filter((product) => product.change.dir === "up")
@@ -50,9 +49,7 @@ const FilterProducts = async () => {
 
         <div className="mt-2 flex items-end justify-between gap-1">
           <div className="min-w-0">
-            <p className="text-[10px] text-gray-500">
-              আজকের দাম
-            </p>
+            <p className="text-[10px] text-gray-500">আজকের দাম</p>
             <p className="mt-0.5 text-xs font-bold text-[#26362b] sm:text-sm">
               {price.toLocaleString("bn-BD")} টাকা
             </p>
@@ -65,8 +62,7 @@ const FilterProducts = async () => {
                 : "bg-green-50 text-green-600"
             }`}
           >
-            {direction === "up" ? "▲" : "▼"}{" "}
-            {change.toLocaleString("bn-BD")}%
+            {direction === "up" ? "▲" : "▼"} {change.toLocaleString("bn-BD")}%
           </span>
         </div>
       </article>
@@ -74,41 +70,42 @@ const FilterProducts = async () => {
   };
 
   return (
-  <section className="w-full px-4 py-6 sm:px-6 lg:px-8">
-    <div className="mx-auto w-full max-w-7xl space-y-6">
+    <section className="w-full px-4 py-6 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-7xl space-y-6">
+        {/* Rising prices */}
+        <div>
+          <h2 className="mb-4 flex items-center gap-1 font-bold">
+            <span className="text-red-600">▲</span>
+            আজ দাম বেড়েছে
+          </h2>
 
-      {/* Rising prices */}
-      <div>
-        <h2 className="mb-4 flex items-center gap-1 font-bold">
-          <span className="text-red-600">▲</span>
-          আজ দাম বেড়েছে
-        </h2>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {upProducts.map((product) => (
+              <Link key={product.id} href={`/details/${product.slug}`}>
+                <ProductCard product={product} />
+              </Link>
+            ))}
+          </div>
+        </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {upProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+        {/* Falling prices */}
+        <div>
+          <h2 className="mb-4 flex items-center gap-1 font-bold">
+            <span className="text-green-600">▼</span>
+            আজ দাম কমেছে
+          </h2>
+
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {downProducts.map((product) => (
+              <Link key={product.id} href={`/details/${product.slug}`}>
+                <ProductCard product={product} />
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
-
-      {/* Falling prices */}
-      <div>
-        <h2 className="mb-4 flex items-center gap-1 font-bold">
-          <span className="text-green-600">▼</span>
-          আজ দাম কমেছে
-        </h2>
-
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {downProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-      </div>
-
-    </div>
-  </section>
-);
-
+    </section>
+  );
 };
 
 export default FilterProducts;
