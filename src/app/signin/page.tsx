@@ -12,7 +12,7 @@ const SignInPage = () => {
   ) => {
     e.preventDefault();
 
-    const formData = new FormData(e.currentTarget);
+    const formData = new FormData(e.target);
 
     const user = {
       email: String(formData.get("email") ?? ""),
