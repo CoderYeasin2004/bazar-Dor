@@ -5,6 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { IProduct } from "@/types/productType";
+import UserInfo from "./UserInfo";
+import ProfileDetails from "@/app/profile/page";
+import UserMenu from "./UserMenu";
 
 const Header = () => {
   const dateRef = useRef<HTMLParagraphElement>(null);
@@ -72,21 +75,9 @@ const Header = () => {
         </div>
 
         {/* Authentication buttons */}
-        <div className="flex items-center gap-1 sm:gap-2">
-          <Link
-            href="/signin"
-            className="rounded-lg px-2 py-2 text-xs font-medium hover:bg-gray-200 sm:px-3 sm:text-sm"
-          >
-            সাইন ইন
-          </Link>
-
-          <Link
-            href="/signup"
-            className="rounded-lg bg-green-700 px-2 py-2 text-xs font-medium text-white hover:bg-green-600 sm:px-3 sm:text-sm"
-          >
-            সাইন আপ
-          </Link>
-        </div>
+       
+       
+       <UserMenu/>
 
         {/* Single mobile menu with all categories */}
         {isOpen && (
@@ -114,6 +105,8 @@ const Header = () => {
           </nav>
         )}
       </div>
+
+      
     </header>
   );
 };

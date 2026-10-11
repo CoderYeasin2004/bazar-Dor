@@ -1,15 +1,42 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import React from "react";
+import { toast } from "react-toastify";
 
 const SignUpPage = () => {
-  const onSubmit = async (e) => {
+  const onSubmit = async (e: React.SubmitEvent<HTMLElement>) => {
     e.preventDefault();
 
-    const formData = new FormData(e.currentTarget);
-    const user = Object.fromEntries(formData.entries())
-    console.log(user)
+    const formData = new FormData(e.target);
+    const user = Object.fromEntries(formData.entries()) as {
+      name: string;
+      email: string;
+      image: string;
+      password: string;
+    };
+
+    const { data, error } = await authClient.signUp.email({
+      ...user,
+      callbackURL: "/",
+    });
+
+    if (data) {
+      console.log("অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে:", data);
+
+      toast.success("আপনার অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে!");
+      redirect("/");
+    }
+
+    if (error) {
+      toast.error(
+        "এই ইমেইলটি ইতিমধ্যে ব্যবহার করা হয়েছে। অন্য একটি ইমেইল ব্যবহার করুন!",
+      );
+    }
+
+   
 
     const name = formData.get("name") as string;
     const email = formData.get("email") as string;
@@ -17,22 +44,33 @@ const SignUpPage = () => {
     const confirmPassword = formData.get("confirmPassword") as string;
 
     if (password.length < 6) {
-      alert("পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।");
+      toast.error("পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।");
       return;
     }
 
     if (password !== confirmPassword) {
-      alert("দুটি পাসওয়ার্ড মিলছে না।");
+      toast.error("দুটি পাসওয়ার্ড মিলছে না।");
       return;
     }
-
-    // Connect your registration API here.
+  
     console.log({ name, email, password });
   };
+   const handleGoogleSignin = async() => {
+      const data = await authClient.signIn.social({
+        provider: "google",
+      });
+      console.log(data)
+    };
+   const handleGithubSignin = async() => {
+      const data = await authClient.signIn.social({
+        provider: "github",
+      });
+      console.log(data)
+    };
 
   return (
     <div className="min-h-screen bg-[#f1f5f0] px-4 py-8">
-      <div className="mx-auto w-full max-w-[360px]">
+      <div className="mx-auto w-full max-w-90">
         {/* Heading */}
         <div className="mb-5 text-center">
           <h1 className="text-xl font-bold text-[#25352b]">
@@ -122,13 +160,11 @@ const SignUpPage = () => {
           </button>
 
           {/* Divider */}
-          <div className="divider my-2 text-[14px] text-gray-500">
-            অথবা
-          </div>
+          <div className="divider my-2 text-[14px] text-gray-500">অথবা</div>
 
           {/* Social Login */}
           <div className="grid grid-cols-2 gap-2">
-            <button
+            <button onClick={handleGoogleSignin}
               type="button"
               className="btn h-8 min-h-0 border-[#e2e9e2] bg-transparent px-2 text-[12px] font-medium text-[#26352b] hover:bg-gray-100"
             >
@@ -137,6 +173,7 @@ const SignUpPage = () => {
             </button>
 
             <button
+            onClick={handleGithubSignin}
               type="button"
               className="btn h-8 min-h-0 border-[#e2e9e2] bg-transparent px-2 text-[12px] font-medium text-[#26352b] hover:bg-gray-100"
             >

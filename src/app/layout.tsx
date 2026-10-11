@@ -9,6 +9,7 @@ import Marquee from "@/components/Marquee";
 import Footer from "@/components/Footer";
 import HeaderSkeleton from "@/components/skeletons/HeaderSkeleton";
 import MarqueeSkeleton from "@/components/skeletons/MarqueeSkeleton";
+import { ToastContainer } from "react-toastify";
 
 const notoSerifBengali = Noto_Serif_Bengali({
   subsets: ["latin", "bengali"],
@@ -30,7 +31,7 @@ export default function RootLayout({
       className={`${notoSerifBengali.className} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <Suspense fallback={<HeaderSkeleton/>}>
+        <Suspense fallback={<HeaderSkeleton />}>
           <Header />
         </Suspense>
 
@@ -38,21 +39,28 @@ export default function RootLayout({
           <NavLinks />
         </Suspense>
 
-       <Suspense
-  fallback={
-    <>
-      <div className="h-8 w-full" />
-      <MarqueeSkeleton />
-    </>
-  }
->
-  <Marquee />
-</Suspense>
+        <Suspense
+          fallback={
+            <>
+              <div className="h-8 w-full" />
+              <MarqueeSkeleton />
+            </>
+          }
+        >
+          <Marquee />
+        </Suspense>
 
         <main className="w-full flex-1">
           {children}
           <Footer />
         </main>
+
+         <ToastContainer
+      position="top-right"
+      autoClose={3000}
+      newestOnTop
+    />
+
       </body>
     </html>
   );
