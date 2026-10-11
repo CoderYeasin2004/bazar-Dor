@@ -39,7 +39,7 @@ const UserInfo = () => {
           <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full ring-2 ring-primary ring-offset-2 ring-offset-base-100">
           <Link href='/profile'>
             <img
-              src={user.image || "/default-avatar.png"}
+              src={user.image || "/default-profile.jpg"}
               alt={user.name || "User avatar"}
               className="h-full w-full object-cover"
               referrerPolicy="no-referrer"
