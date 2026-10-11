@@ -29,6 +29,7 @@ export default function RootLayout({
       lang="bn"
       data-theme="light"
       className={`${notoSerifBengali.className} h-full antialiased`}
+      
     >
       <body className="flex min-h-full flex-col">
         <Suspense fallback={<HeaderSkeleton />}>

@@ -41,8 +41,7 @@ const SignInPage = () => {
     }
   };
 
-  // IMPORTANT: The page JSX belongs here,
-  // outside the onSubmit function.
+ 
   return (
     <div className="min-h-screen bg-[#f1f5f0] px-4 py-8">
       <div className="mx-auto w-full max-w-[360px]">
