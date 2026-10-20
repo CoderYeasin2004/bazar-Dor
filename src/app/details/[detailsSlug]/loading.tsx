@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 const DetailsPageSkeleton = () => {
   return (
     <main className="min-h-screen w-full animate-pulse bg-[#f0f5f0] px-4 py-6 text-[#29362c] sm:px-6 lg:px-10">

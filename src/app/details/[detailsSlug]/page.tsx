@@ -2,7 +2,8 @@ import { IProduct } from "@/types/productType";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 
-const API_URL = "https://openapi.programming-hero.com/api/bazardor/products";
+const API_URL =
+  "https://openapi.programming-hero.com/api/bazardor/products";
 
 const DetailsPage = async ({
   params,
@@ -23,11 +24,15 @@ const DetailsPage = async ({
     ? listResponse
     : (listResponse.data ?? []);
 
-  const matchedProduct = products.find((item) => item.slug === detailsSlug);
+  const matchedProduct = products.find(
+    (item) => item.slug === detailsSlug
+  );
 
   if (!matchedProduct) notFound();
 
-  const detailRes = await fetch(`${API_URL}/${matchedProduct.id}`);
+  const detailRes = await fetch(
+    `${API_URL}/${matchedProduct.id}`
+  );
 
   if (!detailRes.ok) {
     throw new Error("Failed to fetch product details");
@@ -35,25 +40,31 @@ const DetailsPage = async ({
 
   const detailResponse = await detailRes.json();
 
-  const product: IProduct = detailResponse.data ?? detailResponse;
+  const product: IProduct =
+    detailResponse.data ?? detailResponse;
 
-  const formatPrice = (price: number) => price.toLocaleString("bn-BD");
+  const formatPrice = (price: number) =>
+    price.toLocaleString("bn-BD");
 
   return (
     <main className="min-h-screen w-full bg-[#f0f5f0] px-4 py-6 text-[#29362c] sm:px-6 lg:px-10">
       <div className="mx-auto w-full max-w-7xl space-y-5">
         {/* Breadcrumb */}
-        <nav className="text-[15px] text-gray-600">
+        <nav className="flex flex-wrap items-center gap-x-1 gap-y-1 text-[15px] text-gray-600">
           <Link href="/" className="hover:text-green-700">
             হোম
           </Link>
+
           <span className="mx-2">›</span>
           <span>{product.categoryNameBn}</span>
+
           <span className="mx-2">›</span>
-          <span className="text-gray-800">{product.nameBn}</span>
+          <span className="text-gray-800">
+            {product.nameBn}
+          </span>
         </nav>
 
-        {/* Product summary */}
+        {/* Product Summary */}
         <section className="flex flex-col gap-4 rounded-xl border border-[#e2eae3] bg-[#fbfdfb] p-3 sm:flex-row sm:items-center sm:justify-between sm:p-4">
           <div className="flex min-w-0 items-center gap-3">
             <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#f0f4ef] text-xl">
@@ -66,23 +77,38 @@ const DetailsPage = async ({
               </h1>
 
               <p className="mt-1 text-sm text-gray-500">
-                প্রতি {product.unit === "kg" ? "কেজি" : product.unit}
+                প্রতি{" "}
+                {product.unit === "kg"
+                  ? "কেজি"
+                  : product.unit}
                 {" · "}
                 {product.categoryNameBn}
               </p>
 
-              <p className="mt-1 text-sm">সর্বশেষ বাজারদরের তথ্য</p>
+              <p className="mt-1 text-sm">
+                সর্বশেষ বাজারদরের তথ্য
+              </p>
             </div>
           </div>
 
           <div className="w-full rounded-lg bg-[#f0f4ef] px-3 py-3 text-center sm:w-auto sm:min-w-36 sm:shrink-0">
-            <p className="text-sm text-gray-500">আজকের দাম</p>
-            <p className="text-xl font-bold">{formatPrice(product.today)}</p>
-            <p className="text-xs text-gray-500">টাকা / {product.unit}</p>
+            <p className="text-sm text-gray-500">
+              আজকের দাম
+            </p>
+
+            <p className="text-xl font-bold">
+              {formatPrice(product.today)}
+            </p>
+
+            <p className="text-xs text-gray-500">
+              টাকা / {product.unit}
+            </p>
 
             <p
               className={`mt-1 text-xs font-bold ${
-                product.change.dir === "up" ? "text-red-600" : "text-green-600"
+                product.change.dir === "up"
+                  ? "text-red-600"
+                  : "text-green-600"
               }`}
             >
               {product.change.dir === "up" ? "▲" : "▼"}{" "}
@@ -91,11 +117,13 @@ const DetailsPage = async ({
           </div>
         </section>
 
-        {/* Price history */}
+        {/* Price History */}
         <section className="rounded-xl border border-[#e2eae3] bg-[#fbfdfb] p-3">
-          <h2 className="mb-3 text-[20] font-bold">দামের সারসংক্ষেপ</h2>
+          <h2 className="mb-3 text-xl font-bold">
+            দামের সারসংক্ষেপ
+          </h2>
 
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
             {[
               {
                 label: "গতকালের দাম",
@@ -112,15 +140,17 @@ const DetailsPage = async ({
             ].map((item) => (
               <div
                 key={item.label}
-                className="rounded-xl border border-[#e2eae3] p-2 sm:p-3"
+                className="min-w-0 rounded-xl border border-[#e2eae3] p-2 sm:p-3"
               >
-                <p className="text-[18px] text-gray-600">{item.label}</p>
+                <p className="break-words text-sm text-gray-600 sm:text-base">
+                  {item.label}
+                </p>
 
-                <p className="mt-1 text-[15] font-bold text-green-700">
+                <p className="mt-1 break-words text-sm font-bold text-green-700 sm:text-base">
                   {formatPrice(item.price)} টাকা
                 </p>
 
-                <p className="mt-1 text-[12px] text-gray-500">
+                <p className="mt-1 text-xs text-gray-500">
                   প্রতি {product.unit}
                 </p>
               </div>
@@ -128,56 +158,75 @@ const DetailsPage = async ({
           </div>
         </section>
 
-        {/* Market price table */}
-        <section className="rounded-xl border border-[#e2eae3] bg-[#fbfdfb] p-3">
-          <h2 className="mb-3 text-[25px] font-bold">বাজারভিত্তিক আজকের দাম</h2>
+        {/* Responsive Market Price Table */}
+        <section className="w-full min-w-0 rounded-xl border border-[#e2eae3] bg-[#fbfdfb] p-3">
+          <h2 className="mb-3 text-lg font-bold sm:text-2xl">
+            বাজারভিত্তিক আজকের দাম
+          </h2>
 
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[540px] border-collapse text-left text-[15px]">
-              <thead>
-                <tr className="border-b border-[#e2eae3] text-gray-600">
-                  <th className="px-2 py-2 font-medium">বাজার</th>
-                  <th className="px-2 py-2 font-medium">বিভাগ</th>
-                  <th className="px-2 py-2 text-right font-medium">
-                    সর্বনিম্ন
-                  </th>
-                  <th className="px-2 py-2 text-right font-medium">সর্বোচ্চ</th>
-                  <th className="px-2 py-2 text-right font-medium">গড়</th>
-                </tr>
-              </thead>
+          <table className="w-full table-fixed border-collapse text-left text-[10px] sm:text-sm">
+            <thead>
+              <tr className="border-b border-[#e2eae3] text-gray-600">
+                <th className="w-[22%] px-1 py-2 font-medium sm:px-2">
+                  বাজার
+                </th>
 
-              <tbody>
-                {product.markets.map((market, index) => {
-                  const average = (market.min + market.max) / 2;
+                <th className="w-[20%] px-1 py-2 font-medium sm:px-2">
+                  বিভাগ
+                </th>
 
-                  return (
-                    <tr
-                      key={`${market.market}-${index}`}
-                      className={`border-b border-[#dce5dc] ${
-                        index % 2 === 0 ? "bg-[#f0f5f0]" : "bg-[#fbfdfb]"
-                      }`}
-                    >
-                      <td className="px-2 py-2">{market.market}</td>
+                <th className="w-[19%] px-1 py-2 text-right font-medium sm:px-2">
+                  সর্বনিম্ন
+                </th>
 
-                      <td className="px-2 py-2">{market.division}</td>
+                <th className="w-[19%] px-1 py-2 text-right font-medium sm:px-2">
+                  সর্বোচ্চ
+                </th>
 
-                      <td className="px-2 py-2 text-right">
-                        {formatPrice(market.min)} টাকা
-                      </td>
+                <th className="w-[20%] px-1 py-2 text-right font-medium sm:px-2">
+                  গড়
+                </th>
+              </tr>
+            </thead>
 
-                      <td className="px-2 py-2 text-right">
-                        {formatPrice(market.max)} টাকা
-                      </td>
+            <tbody>
+              {product.markets.map((market, index) => {
+                const average =
+                  (market.min + market.max) / 2;
 
-                      <td className="px-2 py-2 text-right">
-                        {formatPrice(average)} টাকা
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+                return (
+                  <tr
+                    key={`${market.market}-${index}`}
+                    className={`border-b border-[#dce5dc] ${
+                      index % 2 === 0
+                        ? "bg-[#f0f5f0]"
+                        : "bg-[#fbfdfb]"
+                    }`}
+                  >
+                    <td className="break-words px-1 py-2 sm:px-2">
+                      {market.market}
+                    </td>
+
+                    <td className="break-words px-1 py-2 sm:px-2">
+                      {market.division}
+                    </td>
+
+                    <td className="break-words px-1 py-2 text-right sm:px-2">
+                      {formatPrice(market.min)} টাকা
+                    </td>
+
+                    <td className="break-words px-1 py-2 text-right sm:px-2">
+                      {formatPrice(market.max)} টাকা
+                    </td>
+
+                    <td className="break-words px-1 py-2 text-right sm:px-2">
+                      {formatPrice(average)} টাকা
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </section>
       </div>
     </main>
