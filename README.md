@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Poject Name :- bazar dor
 
-## Getting Started
 
-First, run the development server:
+# Description :- 
+BazarDor is a web-based shopping platform designed to provide users with a simple and convenient online shopping experience. The project focuses on creating a user-friendly interface where users can explore products and access shopping-related features. It was developed as a practical full-stack web development project to improve my skills in building and deploying modern web applications.
+# Live Demo: https://bazar-dor-bjmp.vercel.app/
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Technologies Used
+1:- Next.js – React framework and App Router
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2:- React – Building interactive user interfaces
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3:- TypeScript – Type-safe development
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4:- Tailwind CSS – Responsive styling
 
-## Learn More
+5: -DaisyUI – UI components
 
-To learn more about Next.js, take a look at the following resources:
+6:- Better Auth – User authentication
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+7:- MongoDB – Database integration
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+8:- Vercel – Deployment
+## Key Features
 
-## Deploy on Vercel
+1:- Market Price Tracking – View prices of everyday essential products in Bangladesh.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2:- Product Categories & Sorting – Browse products by category and sort prices from low to high or high to low.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3:- Price Comparison – Compare market prices and view minimum, maximum, and average prices for products.
+
+4:- User Authentication – Sign in and sign up using email/password, Google, or GitHub.
+5: - Responsive Design – Enjoy a user-friendly experience across mobile, tablet, and desktop devices.
