@@ -3,10 +3,13 @@
 
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { toast } from "react-toastify";
 
 const SignInPage = () => {
+  const router = useRouter();
+
   const onSubmit = async (
     e: React.SubmitEvent<HTMLFormElement>
   ) => {
@@ -34,6 +37,7 @@ const SignInPage = () => {
 
       if (result.data) {
         toast.success("সফলভাবে সাইন ইন হয়েছে! স্বাগতম।");
+        router.push("/");
       }
     } catch (error) {
       console.error("সাইন ইন করতে সমস্যা হয়েছে:", error);

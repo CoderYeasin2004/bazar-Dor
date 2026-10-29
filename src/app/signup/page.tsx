@@ -2,49 +2,30 @@
 
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { toast } from "react-toastify";
 
 const SignUpPage = () => {
+  const router = useRouter();
+
   const onSubmit = async (e: React.SubmitEvent<HTMLElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
-    const user = Object.fromEntries(formData.entries()) as {
-      name: string;
-      email: string;
-      image: string;
-      password: string;
-    };
 
-    const { data, error } = await authClient.signUp.email({
-      ...user,
-      callbackURL: "/",
-    });
+    const name = String(formData.get("name") ?? "").trim();
+    const email = String(formData.get("email") ?? "").trim();
+    const password = String(formData.get("password") ?? "");
+    const confirmPassword = String(formData.get("confirmPassword") ?? "");
 
-    if (data) {
-      console.log("অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে:", data);
-
-      toast.success("আপনার অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে!");
-      redirect("/");
+    if (!name || !email) {
+      toast.error("নাম ও ইমেইল লিখুন।");
+      return;
     }
 
-    if (error) {
-      toast.error(
-        "এই ইমেইলটি ইতিমধ্যে ব্যবহার করা হয়েছে। অন্য একটি ইমেইল ব্যবহার করুন!",
-      );
-    }
-
-   
-
-    const name = formData.get("name") as string;
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-    const confirmPassword = formData.get("confirmPassword") as string;
-
-    if (password.length < 6) {
-      toast.error("পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।");
+    if (password.length < 8) {
+      toast.error("পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে।");
       return;
     }
 
@@ -52,18 +33,45 @@ const SignUpPage = () => {
       toast.error("দুটি পাসওয়ার্ড মিলছে না।");
       return;
     }
-  
-    console.log({ name, email, password });
+
+    try {
+      const { data, error } = await authClient.signUp.email({
+        name,
+        email,
+        password,
+        callbackURL: "/",
+      });
+
+      if (error) {
+        const message =
+          error.code === "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL" ||
+          error.code === "USER_ALREADY_EXISTS"
+            ? "এই ইমেইলটি ইতিমধ্যে ব্যবহার করা হয়েছে। অন্য একটি ইমেইল ব্যবহার করুন!"
+            : "অ্যাকাউন্ট তৈরি করা যায়নি। আবার চেষ্টা করুন।";
+        toast.error(message);
+        return;
+      }
+
+      if (data) {
+        toast.success("আপনার অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে!");
+        router.push("/");
+      }
+    } catch (error) {
+      console.error("সাইন আপ করতে সমস্যা হয়েছে:", error);
+      toast.error("দুঃখিত! অ্যাকাউন্ট তৈরি করা যায়নি। আবার চেষ্টা করুন।");
+    }
   };
    const handleGoogleSignin = async() => {
       const data = await authClient.signIn.social({
         provider: "google",
+        callbackURL: "/",
       });
       console.log(data)
     };
    const handleGithubSignin = async() => {
       const data = await authClient.signIn.social({
         provider: "github",
+        callbackURL: "/",
       });
       console.log(data)
     };
@@ -129,10 +137,10 @@ const SignUpPage = () => {
             name="password"
             type="password"
             required
-            minLength={6}
+            minLength={8}
             autoComplete="new-password"
             className="input h-8 w-full border-[#e2e9e2] bg-transparent text-xs focus:border-green-600 focus:outline-none"
-            placeholder="কমপক্ষে ৬ অক্ষর"
+            placeholder="কমপক্ষে ৮ অক্ষর"
           />
 
           <label
@@ -146,7 +154,7 @@ const SignUpPage = () => {
             name="confirmPassword"
             type="password"
             required
-            minLength={6}
+            minLength={8}
             autoComplete="new-password"
             className="input h-8 w-full border-[#e2e9e2] bg-transparent text-xs focus:border-green-600 focus:outline-none"
             placeholder="আবার লিখুন"

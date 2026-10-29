@@ -6,13 +6,11 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 
 const ProfileDetails = () => {
-  const { data: session, isPending } = authClient.useSession();
+  const { data: session, isPending, refetch } = authClient.useSession();
   const user = session?.user;
 
   const [name, setName] = useState("");
   const [isUpdating, setIsUpdating] = useState(false);
-
-  const [show, setShow] = useState(false)
 
   const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -36,6 +34,7 @@ const ProfileDetails = () => {
 
       toast.success("সফলভাবে তথ্য আপডেট হয়েছে!");
       setName("");
+      await refetch();
     } catch (error) {
       console.error("Profile update error:", error);
       toast.error("তথ্য আপডেট করতে সমস্যা হয়েছে!");
@@ -64,20 +63,6 @@ const ProfileDetails = () => {
     return (
       <div className="min-h-screen animate-pulse bg-[#f0f5f0]" />
     );
-  }
-
-  const handleUpdateProfile = async(e: React.SubmitEvent<HTMLElement>) => {
-e.preventDefault()
-
-const formData = new FormData(e.target)
-const newUserData = Object.fromEntries(formData.entries()) as {name: string}
- await authClient.updateUser({
-    ...newUserData
-})
-  }
-
-  const handleShowForm = () => {
-    setShow(!show)
   }
 
   if (!user) {
