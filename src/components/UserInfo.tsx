@@ -3,11 +3,13 @@
 
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
 const UserInfo = () => {
   const { data: session, isPending } = authClient.useSession();
   const user = session?.user;
+  const router = useRouter();
 
   const handleSignOut = async () => {
     try {
@@ -19,6 +21,7 @@ const UserInfo = () => {
       }
 
       toast.success("সফলভাবে লগ আউট হয়েছে!");
+      router.push("/");
     } catch (error) {
       console.error("Logout error:", error);
       toast.error("লগ আউট করতে সমস্যা হয়েছে!");

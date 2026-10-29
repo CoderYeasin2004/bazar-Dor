@@ -2,12 +2,14 @@
 "use client";
 
 import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
 const ProfileDetails = () => {
   const { data: session, isPending, refetch } = authClient.useSession();
   const user = session?.user;
+  const router = useRouter();
 
   const [name, setName] = useState("");
   const [isUpdating, setIsUpdating] = useState(false);
@@ -53,6 +55,7 @@ const ProfileDetails = () => {
       }
 
       toast.success("সফলভাবে লগ আউট হয়েছে!");
+      router.push("/");
     } catch (error) {
       console.error("Logout error:", error);
       toast.error("লগ আউট করতে সমস্যা হয়েছে!");
