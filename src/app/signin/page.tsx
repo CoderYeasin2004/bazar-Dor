@@ -90,7 +90,7 @@ const SignInPage = () => {
 
           <button
             type="submit"
-            className="btn mt-4 h-10 w-full rounded-md bg-[#078b43] text-[16px] font-semibold text-white shadow-sm hover:bg-[#067638]"
+            className="btn mt-4 h-10 w-full cursor-pointer rounded-md bg-[#078b43] text-[16px] font-semibold text-white shadow-sm hover:bg-[#067638]"
           >
             সাইন ইন
           </button>
@@ -103,7 +103,7 @@ const SignInPage = () => {
             <button
               type="button"
               onClick={() => authClient.signIn.social({ provider: "google", callbackURL: "/" })}
-              className=" rounded-md border border-[#e2e9e2] px-2 py-2 text-xs text-[#26352b] hover:bg-gray-100"
+              className=" cursor-pointer rounded-md border border-[#e2e9e2] px-2 py-2 text-xs text-[#26352b] hover:bg-gray-100"
             >
               <span className="font-bold text-blue-500">G</span>{" "}
               Google দিয়ে লগিন হন
@@ -112,7 +112,7 @@ const SignInPage = () => {
             <button
               type="button"
               onClick={() => authClient.signIn.social({ provider: "github", callbackURL: "/" })}
-              className="rounded-md border border-[#e2e9e2] px-2 py-2 text-xs text-[#26352b] hover:bg-gray-100"
+              className="cursor-pointer rounded-md border border-[#e2e9e2] px-2 py-2 text-xs text-[#26352b] hover:bg-gray-100"
             >
               GitHub দিয়ে লগিন হন
             </button>

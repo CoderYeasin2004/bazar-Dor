@@ -47,7 +47,7 @@ const Hero = () => {
                 block: "start",
               });
             }}
-            className="btn mt-3 rounded-md bg-[#008f3c] px-4 py-2 text-[9px] font-semibold text-white shadow-sm transition hover:bg-[#007a33] sm:px-5 sm:py-2.5 sm:text-[13px]"
+            className="btn mt-3 cursor-pointer rounded-md bg-[#008f3c] px-4 py-2 text-[9px] font-semibold text-white shadow-sm transition hover:bg-[#007a33] sm:px-5 sm:py-2.5 sm:text-[13px]"
           >
             সব পণ্য দেখুন
           </button>

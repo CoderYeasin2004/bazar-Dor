@@ -60,7 +60,7 @@ const UserInfo = () => {
           {/* Sign Out */}
           <button
             onClick={handleSignOut}
-            className="btn btn-error btn-sm sm:btn-md"
+            className="btn btn-error btn-sm cursor-pointer sm:btn-md"
           >
             লগ আউট
           </button>

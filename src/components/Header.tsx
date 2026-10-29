@@ -44,7 +44,7 @@ const Header = () => {
           onClick={() => setIsOpen(!isOpen)}
           aria-label={isOpen ? "মেনু বন্ধ করুন" : "মেনু খুলুন"}
           aria-expanded={isOpen}
-          className="rounded-lg border border-gray-200 p-2 text-2xl md:hidden"
+          className="cursor-pointer rounded-lg border border-gray-200 p-2 text-2xl md:hidden"
         >
           {isOpen ? "✕" : "☰"}
         </button>

@@ -162,7 +162,7 @@ const SignUpPage = () => {
 
           <button
             type="submit"
-            className="btn mt-3 h-9 min-h-0 w-full border-none bg-[#078b43] text-[16px] font-semibold text-white shadow-sm hover:bg-[#067638]"
+            className="btn mt-3 h-9 min-h-0 w-full cursor-pointer border-none bg-[#078b43] text-[16px] font-semibold text-white shadow-sm hover:bg-[#067638]"
           >
             অ্যাকাউন্ট তৈরি করুন
           </button>
@@ -174,7 +174,7 @@ const SignUpPage = () => {
           <div className="grid grid-cols-2 gap-2">
             <button onClick={handleGoogleSignin}
               type="button"
-              className="btn h-8 min-h-0 border-[#e2e9e2] bg-transparent px-2 text-[12px] font-medium text-[#26352b] hover:bg-gray-100"
+              className="btn h-8 min-h-0 cursor-pointer border-[#e2e9e2] bg-transparent px-2 text-[12px] font-medium text-[#26352b] hover:bg-gray-100"
             >
               <span className="font-bold text-blue-500">G</span>
               Google দিয়ে লগিন হন
@@ -183,7 +183,7 @@ const SignUpPage = () => {
             <button
             onClick={handleGithubSignin}
               type="button"
-              className="btn h-8 min-h-0 border-[#e2e9e2] bg-transparent px-2 text-[12px] font-medium text-[#26352b] hover:bg-gray-100"
+              className="btn h-8 min-h-0 cursor-pointer border-[#e2e9e2] bg-transparent px-2 text-[12px] font-medium text-[#26352b] hover:bg-gray-100"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

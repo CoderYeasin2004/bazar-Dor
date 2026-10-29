@@ -1,8 +1,2 @@
 @import "tailwindcss";
 @plugin "daisyui";
-
-/* Show a pointer cursor on every enabled button (and role="button" element). */
-button:not(:disabled),
-[role="button"]:not(:disabled) {
-  cursor: pointer;
-}

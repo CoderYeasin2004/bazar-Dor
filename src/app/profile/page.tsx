@@ -125,7 +125,7 @@ const ProfileDetails = () => {
           <button
             type="button"
             onClick={handleSignOut}
-            className=" btn rounded-md border border-red-400 px-3 py-2 text-xs font-medium text-red-500 transition hover:bg-red-50 cursor:pointer "
+            className=" btn cursor-pointer rounded-md border border-red-400 px-3 py-2 text-xs font-medium text-red-500 transition hover:bg-red-50"
           >
             ↶ লগ আউট
           </button>
@@ -157,7 +157,7 @@ const ProfileDetails = () => {
             <button
               type="submit"
               disabled={isUpdating || !name.trim()}
-              className="w-full rounded-md bg-green-700 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-green-800 disabled:cursor-not-allowed disabled:opacity-60"
+              className="w-full cursor-pointer rounded-md bg-green-700 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-green-800 disabled:cursor-not-allowed disabled:opacity-60"
             >
               {isUpdating ? "আপডেট হচ্ছে..." : "আপডেট"}
             </button>
